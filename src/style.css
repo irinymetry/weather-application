@@ -69,3 +69,18 @@ p {
 .github-link {
   color: blue;
 }
+ul {
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+li {
+  font-size: 16px;
+  font-weight: 100;
+  height: 19px;
+  line-height: 1;
+  list-style: none;
+}
+.units {
+  font-size: 16px;
+}
