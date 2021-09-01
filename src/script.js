@@ -15,7 +15,11 @@ function celsiusTemp(event) {
 let currentdescription = document.querySelector("#temperature");
 currentdescription.innerHTML = celsiusTemperature;
 }
-
+function getForecast(coordinates) {
+  let apiKey = "f65a87fb0c6fa7cce995f31a5e35496e";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  window.axios.get(apiUrl).then(displayForecast);
+}
 function showTemeperature(response) {
   //temperature in celsius
      celsiusTemperature = Math.round(response.data.main.temp);
@@ -35,7 +39,9 @@ function showTemeperature(response) {
     //weather icon
     let icon = document.querySelector("#icon");
     icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
-    
+  
+  
+  getForecast(response.data.coord);
 }
 function farenheitTemp(event) {
     event.preventDefault();
@@ -47,6 +53,7 @@ function showcurrentLocationTemp() {
   navigator.geolocation.getCurrentPosition(showPosition);
   let currentLocation = document.querySelector("#current-city");
   currentLocation.innerHTML = "Current Location";
+  
 }
 function showPosition(position) {
   console.log(position.coords.latitude);
@@ -76,8 +83,73 @@ function showCurrentTemeperature(response) {
     //weather icon
     let icon = document.querySelector("#icon");
     icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
-    
+ 
+  getForecast(response.data.coord);
 }
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDate();
+  let days = [
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat"
+];
+  return days[day];
+}
+function displayForecast(response) {
+  let forecast = response.data.daily;
+
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index<5){
+    forecastHTML = forecastHTML + `
+  
+            <div class="col">
+                <div class="shadow p-3 mb-5 bg-body rounded">
+                    <h6>${formatDay(forecastDay.dt)}</h6>
+                    <p>${Math.round(forecastDay.temp.day)}°C <img src=http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png
+                    alt=""
+                    width="42"/></p>
+                </div>
+            </div>`;
+      }
+    
+  });
+ 
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+            /*<div class="col">
+                <div class="shadow p-3 mb-5 bg-body rounded">
+                    <h6>Tue</h6>
+                    <p>26°C <i class="fas fa-sun sun"></i></p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="shadow p-3 mb-5 bg-body rounded">
+                    <h6>Wed</h6>
+                    <p>22°C <i class="fas fa-cloud-sun cloud-sun"></i></p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="shadow p-3 mb-5 bg-body rounded">
+                    <h6>Thu</h6>
+                    <p>23°C <i class="fas fa-cloud-sun cloud-sun"></i></p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="shadow p-3 mb-5 bg-body rounded">
+                    <h6>Fri</h6>
+                    <p>20°C <i class="fas fa-cloud cloud"></i></p>
+                </div>
+            </div>
+        </div>*/
+}
+  
 let now = new Date();
 let days = [
   "Sunday",
