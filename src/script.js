@@ -43,12 +43,7 @@ function showTemeperature(response) {
   
   getForecast(response.data.coord);
 }
-function farenheitTemp(event) {
-    event.preventDefault();
-    let farenheitTemperature = Math.round((celsiusTemperature * 9) / 5 + 32);
-    let temperature = document.querySelector("#temperature");
-    temperature.innerHTML = farenheitTemperature;
-}
+
 function showcurrentLocationTemp() {
   navigator.geolocation.getCurrentPosition(showPosition);
   let currentLocation = document.querySelector("#current-city");
@@ -123,31 +118,6 @@ function displayForecast(response) {
  
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-            /*<div class="col">
-                <div class="shadow p-3 mb-5 bg-body rounded">
-                    <h6>Tue</h6>
-                    <p>26°C <i class="fas fa-sun sun"></i></p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="shadow p-3 mb-5 bg-body rounded">
-                    <h6>Wed</h6>
-                    <p>22°C <i class="fas fa-cloud-sun cloud-sun"></i></p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="shadow p-3 mb-5 bg-body rounded">
-                    <h6>Thu</h6>
-                    <p>23°C <i class="fas fa-cloud-sun cloud-sun"></i></p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="shadow p-3 mb-5 bg-body rounded">
-                    <h6>Fri</h6>
-                    <p>20°C <i class="fas fa-cloud cloud"></i></p>
-                </div>
-            </div>
-        </div>*/
 }
   
 let now = new Date();
@@ -173,11 +143,6 @@ newCity.addEventListener("submit", citySearch);
 let celsiusTemperature = null;
 let celsiusValue = document.querySelector("#temperature");
 
-let celsius = document.querySelector("#celsius");
-celsius.addEventListener("click", celsiusTemp);
 
 let currentLocation = document.querySelector("#current-location-button");
 currentLocation.addEventListener("click", showcurrentLocationTemp);
-
-let farenheit = document.querySelector("#farenheit");
-farenheit.addEventListener("click", farenheitTemp);
