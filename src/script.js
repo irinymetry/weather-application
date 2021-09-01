@@ -106,8 +106,8 @@ function displayForecast(response) {
   
             <div class="col">
                 <div class="shadow p-3 mb-5 bg-body rounded">
-                    <h6>${formatDay(forecastDay.dt)}</h6>
-                    <p>${Math.round(forecastDay.temp.day)}°C <img src=http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png
+                    <h6 text-align= center>${formatDay(forecastDay.dt)}</h6>
+                    <p text-align= center>${Math.round(forecastDay.temp.day)}°C <img src=http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png
                     alt=""
                     width="42"/></p>
                 </div>
